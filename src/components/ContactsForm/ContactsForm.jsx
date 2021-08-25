@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class ContactsForm extends Component {
   state = {
     contacts: [],
-    name: "",
-    number: "",
+    name: '',
+    number: '',
   };
   reset = () => {
-    this.setState({ name: "", number: "" });
+    this.setState({ name: '', number: '' });
   };
-  handleChange = (e) => {
+  handleChange = e => {
     const { name, value } = e.currentTarget;
     //this.setState({ name: e.currentTarget.name });
     // this.setState({ value });
@@ -18,7 +18,7 @@ class ContactsForm extends Component {
     // console.log("NAME:", [name]);
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     const { name, number } = this.state;
     //   const { number } = this.state;
     e.preventDefault();
@@ -65,11 +65,12 @@ class ContactsForm extends Component {
           </label>
           <button
             onClick={() => {
-              console.log("add contakt");
+              console.log('add contakt');
             }}
             type="submit"
-            buttonname="Add contact"
-          />
+          >
+            add contact
+          </button>
         </form>
       </div>
     );

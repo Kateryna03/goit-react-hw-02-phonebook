@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './App.css';
 
 import ContactsForm from '../components/ContactsForm';
+import ContactList from '../components/ContactList';
 
 class App extends Component {
   state = {
@@ -30,6 +31,13 @@ class App extends Component {
       contacts: [newContact, ...contacts],
     }));
   };
+
+  handleDeleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+
   render() {
     return (
       <Fragment>
@@ -49,12 +57,11 @@ class App extends Component {
               required
             />
           </label>
-          <ul>
-            {Object.keys(this.state.contacts).map(item => (
-              <li key={item}></li>
-            ))}
-          </ul>
-          {/* <ContactList  /> */}
+
+          <ContactList
+            contacts={this.state.contacts}
+            handleDeleteContact={this.handleDeleteContact}
+          />
         </div>
       </Fragment>
     );

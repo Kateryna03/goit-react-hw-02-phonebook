@@ -3,7 +3,7 @@ import './App.css';
 
 import ContactsForm from '../components/ContactsForm';
 import ContactList from '../components/ContactList';
-
+import Filter from '../components/Filter';
 class App extends Component {
   state = {
     contacts: [
@@ -38,7 +38,18 @@ class App extends Component {
     }));
   };
 
+  onChangeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+  onFilterName = () => {
+    const { filter, contacts } = this.state;
+    const normolizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normolizedFilter),
+    );
+  };
   render() {
+    const contactsResults = this.onFilterName();
     return (
       <Fragment>
         <div>
@@ -46,20 +57,13 @@ class App extends Component {
           <ContactsForm onSubmit={this.handleSubmit} />
 
           <h2>Contacts</h2>
-          {/* <Filter  /> */}
-          <label>
-            Find contacts by name
-            <input
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-            />
-          </label>
+          <Filter
+            value={this.state.filter}
+            onChangeFilter={this.onChangeFilter}
+          />
 
           <ContactList
-            contacts={this.state.contacts}
+            contacts={contactsResults}
             handleDeleteContact={this.handleDeleteContact}
           />
         </div>

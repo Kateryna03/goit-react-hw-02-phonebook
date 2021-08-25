@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import shortid from 'shortid';
 import './App.css';
 
 import ContactsForm from '../components/ContactsForm';
@@ -20,19 +21,23 @@ class App extends Component {
   handleSubmit = (name, number, id) => {
     // console.log(this.state.contacts);
     const newContact = {
-      id,
+      id: shortid.generate(),
       name,
       number,
     };
-
     const { contacts } = this.state;
+    if (contacts.find(contact => contact.name === newContact.name)) {
+      alert(`${newContact.name}is already in contacts.`);
+      return;
+    }
+
     console.log(contacts);
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts],
     }));
   };
 
-  handleDeleteContact = id => {
+  handleRemoveContact = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
@@ -64,7 +69,7 @@ class App extends Component {
 
           <ContactList
             contacts={contactsResults}
-            handleDeleteContact={this.handleDeleteContact}
+            handleDeleteContact={this.handleRemoveContact}
           />
         </div>
       </Fragment>

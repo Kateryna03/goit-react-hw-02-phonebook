@@ -6,9 +6,7 @@ class ContactsForm extends Component {
     name: '',
     number: '',
   };
-  reset = () => {
-    this.setState({ name: '', number: '' });
-  };
+
   handleChange = e => {
     const { name, value } = e.currentTarget;
     //this.setState({ name: e.currentTarget.name });
@@ -25,6 +23,10 @@ class ContactsForm extends Component {
     this.props.onSubmit(name, number);
 
     this.reset();
+  };
+
+  reset = () => {
+    this.setState({ name: '', number: '' });
   };
 
   render() {

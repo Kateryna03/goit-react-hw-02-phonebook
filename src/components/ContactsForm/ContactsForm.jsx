@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 
 class ContactsForm extends Component {
   state = {
-    contacts: [],
     name: '',
     number: '',
   };
 
   handleChange = e => {
     const { name, value } = e.currentTarget;
-    //this.setState({ name: e.currentTarget.name });
-    // this.setState({ value });
     this.setState({ [name]: value });
     // console.log("VALUE:", e.currentTarget);
     // console.log("NAME:", [name]);
@@ -18,7 +15,6 @@ class ContactsForm extends Component {
 
   handleSubmit = e => {
     const { name, number } = this.state;
-    //   const { number } = this.state;
     e.preventDefault();
     this.props.onSubmit(name, number);
 
